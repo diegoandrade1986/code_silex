@@ -1,0 +1,24 @@
+{% extends 'layout.twig' %}
+
+
+{% block nav1 %}
+active
+{% endblock %}
+
+{% block aplicacao %}
+
+<h1>Clientes</h1>
+
+{% endblock %}
+
+{% block conteudo %}
+<ul>
+    {# fazendo um loop de repeticao dentro do twig
+        com sua propria funcionalidade
+    #}
+    {% for cliente in clientes %}
+        <li>{{ cliente.nome }} ({{ cliente.email }})</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

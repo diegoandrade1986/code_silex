@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>{% block title %}Nosso template{% endblock %}</title>
+</head>
+<body>
+
+
+{% block aplicacao %}
+
+<h1>Essa é a nossa aplicação</h1>
+
+{% endblock %}
+
+<ul>
+    <li class="">{% block nav1 %}Nosso template{% endblock %}</li>
+    <li class="">{% block nav2 %}Nosso template{% endblock %}</li>
+    <li class="">{% block nav3 %}Nosso template{% endblock %}</li>
+    <li class="">{% block nav4 %}Nosso template{% endblock %}</li>
+</ul>
+
+
+
+
+{# Onde irá aparecer o restante da nossa aplicação#}
+
+{% block conteudo %}
+
+{% endblock %}
+
+{#  #}
+
+<footer>Todos os direitos reservados. </footer>
+</body>
+</html>
