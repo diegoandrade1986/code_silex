@@ -1,0 +1,12 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: diego
+ * Date: 17/03/16
+ * Time: 10:40
+ */
+
+require_once 'vendor/autoload.php';
+
+//instaciando a classe silex
+$app = new \Silex\Application();
