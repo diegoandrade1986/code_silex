@@ -10,3 +10,6 @@ require_once 'vendor/autoload.php';
 
 //instaciando a classe silex
 $app = new \Silex\Application();
+
+// para mostrar os erros que estao acontecendo
+$app['debug'] = true;
