@@ -11,22 +11,47 @@ use Andrade\Sistema\Entity\Cliente;
 
 class ClienteMapper
 {
+    private $dados = [
+      0 => [
+          'id'=> 0,
+          'nome' => 'Cliente XPTO',
+          'email' => 'Clientexptoo@email.com'
+      ],
+        1 => [
+            'id'=> 1,
+            'nome' => 'Cliente Y',
+            'email' => 'Clientey@email.com'
+        ]
+    ];
     public function insert(Cliente $cliente)
     {
         return [
-            'nome'=> 'Cliente X',
-            'email' => 'email@clientex.com'
+            'sucess'=> true
         ];
+    }
+
+    public function update($id, array $array)
+    {
+        return [
+            'sucess'=> true
+        ];
+
+    }
+    public function delete($id)
+    {
+        return [
+            'sucess'=> true
+        ];
+
+    }
+    public function find($id)
+    {
+        return $this->dados[$id];
     }
 
     public function fetchAll()
     {
-        $dados[0]['nome'] = "Cliente XPTO";
-        $dados[0]['email'] = "Clientexptoo@email.com";
-
-        $dados[1]['nome'] = "Cliente Y";
-        $dados[1]['email'] = "Clientey@email.com";
-
+        $dados = $this->dados;
         return $dados;
     }
 

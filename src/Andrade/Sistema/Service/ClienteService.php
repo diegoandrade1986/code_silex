@@ -31,10 +31,23 @@ class ClienteService
 
         return $result;
     }
+    public function update($id,array $array)
+    {
+        return $this->clienteMapper->update($id,$array);
+    }
 
     public function fetchAll()
     {
         return $this->clienteMapper->fetchAll();
+    }
+
+    public function find($id)
+    {
+        return $this->clienteMapper->find($id);
+    }
+    public function delete($id)
+    {
+        return $this->clienteMapper->delete($id);
     }
 
 }
