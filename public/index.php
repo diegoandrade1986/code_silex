@@ -12,6 +12,9 @@ require_once __DIR__."/../bootstrap.php";
 use Andrade\Sistema\Service\ClienteService;
 use Andrade\Sistema\Entity\Cliente;
 use Andrade\Sistema\Mapper\ClienteMapper;
+use Andrade\Sistema\Service\ProductService;
+use Andrade\Sistema\Entity\Product;
+use Andrade\Sistema\Mapper\ProductMapper;
 use Symfony\Component\HttpFoundation\Request;
 
 /* BASEADO NA BIBLIOTECA PIMPPLE QUE E UM SERVICE CONTAINER
@@ -22,6 +25,16 @@ $app['clienteService'] = function (){
     $clienteService = new ClienteService($clienteEntity,$clienteMapper);
     return $clienteService;
 };
+
+/* BASEADO NA BIBLIOTECA PIMPPLE QUE E UM SERVICE CONTAINER
+REGISTRANDO UMA FUNCAO NO clienteService PARA TIRAR DO RESPONSE */
+$app['productService'] = function (){
+    $productEntity = new Product();
+    $productMapper = new ProductMapper();
+    $productService = new ProductService($productEntity,$productMapper);
+    return $productService;
+};
+
 /*
 GET /api/clientes - listar todos os clientes
 GET /api/clientes/3 - listar apenas 1 cliente passando o id como parametro
@@ -30,6 +43,51 @@ PUT /api/clientes/2 - Altera um cliente passando o id como parametro
 DELETE /apli/clientes/3 - Deleta um cliente passando o id como parametro
 */
 
+#-------------------------------------------------------Product
+/*Inserindo Produto*/
+$app->post("/api/produtos",function(Request $request) use ($app){
+    $dados['nome'] = $request->get('nome');
+    $dados['descricao'] = $request->get('descricao');
+    $dados['valor'] = $request->get('valor');
+    $result = $app['productService']->insert($dados);
+    return $app->json($result);
+});
+
+/*Listando todos os produtos*/
+$app->get("/api/produtos",function() use ($app) {
+    $dados = $app['productService']->fetchAll();
+    return $app->json($dados);
+});
+
+/*Listando um produtos*/
+$app->get("/api/produtos/{id}",function($id) use ($app) {
+    $dados = $app['productService']->find($id);
+    return $app->json($dados);
+});
+
+/*Deletando um produto  */
+$app->delete("/api/produtos/{id}",function($id) use ($app) {
+    if ((int) $id) {
+        $dados = $app['productService']->delete($id);
+        return $app->json($dados);
+    }
+    return false;
+
+});
+
+/*Alterando um Produto*/
+$app->put("/api/produtos/{id}",function($id,Request $request) use ($app) {
+    if ((int)$id){
+        $dados['nome'] = $request->get('nome');
+        $dados['descricao'] = $request->get('descricao');
+        $dados['valor'] = $request->get('valor');
+        $result = $app['productService']->update($id, $dados);
+        return $app->json($result);
+    }
+    return false;
+    });
+
+#-------------------------------------------------------Cliente
 /*Listando todos os clientes*/
 $app->get("/api/clientes",function() use ($app) {
     $dados = $app['clienteService']->fetchAll();
